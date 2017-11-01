@@ -4,12 +4,16 @@
     "description": "JavaScript development environment Pluralsight course",
     "scripts": {
 		"prestart": "babel-node buildScripts/startMessage.js",
-		"start": "npm-run-all --parallel sec-chk startpage",
+		"start": "npm-run-all --parallel sec-chk startpage lint:watch test:watch",
 		"startpage": "babel-node buildScripts/srcServer.js",
+		"lint": "esw webpack.config.* src buildScripts",
+		"lint:watch": "npm run lint -- --watch ",
 		"sec-chk": "nsp check",
 		"localtunnel": " lt --port 3000",
-		"share": " npm-run-all --parallel startpage localtunnel"
-    },
+		"share": " npm-run-all --parallel startpage localtunnel",
+		"test": "mocha --reporter progress buildScripts/testSetup.js \"src/**/*.test.js\"",
+		"test:watch": "npm run test -- --watch "
+	},
     "author": "Jay McLeester",
     "license": "MIT",
     "dependencies": {
